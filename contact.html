@@ -1,0 +1,85 @@
+<html>
+<head>
+  <title>Farmo – Contact</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-logo">🌾</span><span class="brand-name">Farmo</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="farmers.html">Farmers</a>
+        <a href="consumers.html">Consumers</a>
+        <a href="weather.html">Weather</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a class="active" href="contact.html">Contact</a>
+     </nav>
+    
+      <a href="login.html" id="loginBtn" class="btn btn-outline">Login</a>
+      <a href="signup.html" id="signupBtn" class="btn btn-accent">Sign Up</a>
+      <button id="logoutBtn" onclick="logout()" style="display:none;" class="btn btn-outline">Logout</button>
+   </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <h2>Get in touch</h2>
+      <p class="lead">Questions, partnerships, or onboarding help — we’re here to help.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">Contact form</h3>
+          <form action="https://formspree.io/f/xgoppjjq" method="POST">
+          <p>Name</p>
+          <div class="spacer"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <input name="name" style="flex:1 1 200px;padding:10px;border:1px solid #e0e0e0;border-radius:8px" placeholder="Full name">
+            <input name="email" style="flex:1 1 200px;padding:10px;border:1px solid #e0e0e0;border-radius:8px" placeholder="Email">
+	<input name="phone" style="flex:1 1 200px;padding:10px;border:1px solid #e0e0e0;border-radius:8px" type="tel" placeholder="Contact Number">
+	<input name="product" style="flex:1 1 200px;padding:10px;border:1px solid #e0e0e0;border-radius:8px" type="text" placeholder="Product Name" required>
+  <input name="price" style="flex:1 1 200px;padding:10px;border:1px solid #e0e0e0;border-radius:8px" type="number" placeholder="Price" required>
+  <input name="image" style="flex:1 1 200px;padding:10px;border:1px solid #e0e0e0;border-radius:8px" type="text" placeholder="Image URL" required>
+          </div>
+          <div class="spacer"></div>
+          <textarea name="message" style="width:100%;min-height:110px;padding:10px;border:1px solid #e0e0e0;border-radius:8px" placeholder="Message"></textarea>
+          
+          <div class="spacer"></div>
+          <button type="submit" class="btn btn-primary">Send message</button>
+          <input type="hidden" name="_subject" value="New Farmer Product 🚀">
+          </form>
+        </div>
+        <div>
+          <h3>Support</h3>
+          <p>Email: support@farmo.official</p>
+          <p>Helpline: +91 82954 57893</p>
+          
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="container"><small>© 2025 Farmo</small></div></footer>
+  
+
+  <script>
+  window.onload = function() {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      document.getElementById("loginBtn").style.display = "none";
+      document.getElementById("signupBtn").style.display = "none";
+      document.getElementById("logoutBtn").style.display = "inline-block";
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("token");
+    location.reload();
+  }
+  </script>
+
+</body>
+</body>
+</html>
