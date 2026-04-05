@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up – Farmo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header container">
+    <div class="logo">🌱 Farmo</div>
+  </header>
+
+  <!-- Signup Form -->
+  <section class="container" style="max-width:400px;margin:50px auto;">
+    <h1 style="text-align:center;">📝 Create an Account</h1>
+    <div class="card">
+      <form id="signupForm">
+        <label>Full Name</label><br>
+        <input type="text" name="name" required style="width:100%;padding:10px;margin:8px 0;"><br>
+
+        <label>Email</label><br>
+        <input type="email" name="email" required style="width:100%;padding:10px;margin:8px 0;"><br>
+
+        <label>Password</label><br>
+        <input type="password" name="password" required style="width:100%;padding:10px;margin:8px 0;"><br>
+
+        <label>Role</label><br>
+        <select name="role" required style="width:100%;padding:10px;margin:8px 0;">
+          <option value="">Select Role</option>
+          <option value="farmer">Farmer</option>
+          <option value="consumer">Consumer</option>
+        </select><br>
+
+        <button type="submit" class="btn btn-accent" style="width:100%;">Sign Up</button>
+      </form>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<div id="g_id_onload"
+     data-client_id="678361703159-raflhsma92btv8rcnn1j4vmrm7th8ua0.apps.googleusercontent.com"
+     data-callback="handleCredentialResponse">
+</div>
+
+<div class="g_id_signin"></div>
+
+<script>
+function handleCredentialResponse(response) {
+  // simple login mark
+  localStorage.setItem("isLoggedIn", "true");
+
+  // redirect
+  window.location.href = "index.html";
+}
+</script>
+      <p style="text-align:center;margin-top:12px;">Already have an account? <a href="login.html">Login</a></p>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('signupForm');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = form.name.value;
+      const email = form.email.value;
+      const password = form.password.value;
+      const role = form.role.value;
+
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password, role })
+        });
+
+        const data = await response.json();
+
+        if(data.token){
+          localStorage.setItem('token', data.token);
+          localStorage.setItem("isLoggedIn", "true"); // 🔥 important
+          alert(`Welcome ${data.user.name}`);
+          window.location.href = 'index.html';
+        } else {
+          alert(data.message);
+        }
+      } catch (err) {
+        alert('Server error. Try again later.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
